@@ -6,6 +6,8 @@ import asyncio
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 
+WEBHOOK_SECRET = "horizon123"
+
 bot = Bot(token=BOT_TOKEN)
 app = FastAPI()
 
@@ -15,6 +17,10 @@ async def send_signal(text):
 @app.post("/webhook")
 async def webhook(request: Request):
     data = await request.json()
+
+    # 🔐 Check webhook password
+    if data.get("secret") != WEBHOOK_SECRET:
+        return {"status": "unauthorized"}
 
     symbol = data.get("symbol")
     side = data.get("side")
