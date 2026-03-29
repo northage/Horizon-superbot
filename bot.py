@@ -1,7 +1,7 @@
 import os
+import asyncio
 from fastapi import FastAPI, Request
 from aiogram import Bot
-import asyncio
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
@@ -11,36 +11,48 @@ WEBHOOK_SECRET = "horizon123"
 bot = Bot(token=BOT_TOKEN)
 app = FastAPI()
 
-async def send_signal(text):
-    await bot.send_message(chat_id=CHANNEL_ID, text=text, parse_mode="HTML")
+
+async def send_signal(text: str):
+    await bot.send_message(
+        chat_id=CHANNEL_ID,
+        text=text,
+        parse_mode="HTML"
+    )
+
 
 @app.post("/webhook")
 async def webhook(request: Request):
     data = await request.json()
 
-    # 🔐 Check webhook password
     if data.get("secret") != WEBHOOK_SECRET:
         return {"status": "unauthorized"}
 
-    symbol = data.get("symbol")
-    side = data.get("side")
-    entry = data.get("entry")
-    sl = data.get("sl")
-    tp1 = data.get("tp1")
-    tp2 = data.get("tp2")
-    tp3 = data.get("tp3")
+    symbol = data.get("symbol", "N/A")
+    side = data.get("side", "N/A")
+    signal_price = data.get("signal_price", "N/A")
+    entry = data.get("entry", "N/A")
+    sl = data.get("sl", "N/A")
+    tp1 = data.get("tp1", "N/A")
+    tp2 = data.get("tp2", "N/A")
+    tp3 = data.get("tp3", "N/A")
+    tp4 = data.get("tp4", "N/A")
+    tp5 = data.get("tp5", "N/A")
 
     message = f"""
 🔥 <b>{symbol} {side}</b>
 
-Entry: {entry}
-Stop Loss: {sl}
+<b>Signal Price:</b> {signal_price}
+<b>Entry Range:</b> {entry}
+<b>Stop Loss:</b> {sl}
 
-TP1: {tp1}
-TP2: {tp2}
-TP3: {tp3}
+<b>TP1:</b> {tp1}
+<b>TP2:</b> {tp2}
+<b>TP3:</b> {tp3}
+<b>TP4:</b> {tp4}
+<b>TP5:</b> {tp5}
 
-#TradingSignal
+⚠️ <i>Move stop loss to break even when trade is 70+ pips profit</i> ⚠️
+
 """
 
     asyncio.create_task(send_signal(message))
