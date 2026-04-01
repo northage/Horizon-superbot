@@ -50,7 +50,7 @@ async def webhook(request: Request):
 🎯 <b>TP3:</b> {tp3}
 🚀 <b>TP4:</b> Let it run 🚀
 
-⚠️ <i>Manage trade once in profit make safe and trail stop loss up</i> ⚠️
+⚠️ <i>Make risk free once in profit and trail stop loss up</i> ⚠️
 """
 
     asyncio.create_task(send_signal(message))
