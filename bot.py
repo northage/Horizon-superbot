@@ -33,6 +33,11 @@ async def webhook(request: Request):
     entry = data.get("entry", "N/A")
     sl = data.get("sl", "N/A")
 
+    # Take Profits
+    tp1 = data.get("tp1", "N/A")
+    tp2 = data.get("tp2", "N/A")
+    tp3 = data.get("tp3", "N/A")
+
     message = f"""
 🔥 <b>{symbol} {side}</b>
 
@@ -40,7 +45,12 @@ async def webhook(request: Request):
 <b>Entry Range:</b> {entry}
 <b>Stop Loss:</b> {sl}
 
-⚠️ <i>Manage trade once in profit make safe and trial stop loss up</i> ⚠️
+🎯 <b>TP1:</b> {tp1}
+🎯 <b>TP2:</b> {tp2}
+🎯 <b>TP3:</b> {tp3}
+🚀 <b>TP4:</b> Let it run 🚀
+
+⚠️ <i>Manage trade once in profit make safe and trail stop loss up</i> ⚠️
 """
 
     asyncio.create_task(send_signal(message))
