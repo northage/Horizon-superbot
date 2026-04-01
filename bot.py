@@ -32,11 +32,6 @@ async def webhook(request: Request):
     signal_price = data.get("signal_price", "N/A")
     entry = data.get("entry", "N/A")
     sl = data.get("sl", "N/A")
-    tp1 = data.get("tp1", "N/A")
-    tp2 = data.get("tp2", "N/A")
-    tp3 = data.get("tp3", "N/A")
-    tp4 = data.get("tp4", "N/A")
-    tp5 = data.get("tp5", "N/A")
 
     message = f"""
 🔥 <b>{symbol} {side}</b>
@@ -45,14 +40,7 @@ async def webhook(request: Request):
 <b>Entry Range:</b> {entry}
 <b>Stop Loss:</b> {sl}
 
-<b>TP1:</b> {tp1}
-<b>TP2:</b> {tp2}
-<b>TP3:</b> {tp3}
-<b>TP4:</b> {tp4}
-<b>TP5:</b> {tp5}
-
-⚠️ <i>Move stop loss to break even when trade is 70+ pips profit</i> ⚠️
-
+⚠️ <i>Manage trade once in profit make safe and trial stop loss up</i> ⚠️
 """
 
     asyncio.create_task(send_signal(message))
