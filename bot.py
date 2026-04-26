@@ -71,18 +71,21 @@ def format_update(data: dict) -> Optional[str]:
         )
     if "TP2 HIT" in status:
         return (
-            f"🎯 <b>TP2 Hit @ {price}</b>\n"
+            f"🎯 <b>TP2 Hit @ {price}</b> 🔥\n"
             f"Trail stop loss up."
         )
     if "TP3 HIT" in status:
         return (
-            f"🎯 <b>TP3 Hit @ {price}</b>\n"
-            f"🚀 <b>Let it run for TP4!</b>"
+            f"🎯 <b>TP3 Hit @ {price}</b> 🔥\n"
+            f"🚀 <b>Let it run 🚀</b>"
         )
     if "TP4 HIT" in status:
-        return f"🎯 <b>TP4 Hit @ {price}</b> 🔥"
+        return (
+            f"🎯 <b>TP4 Hit @ {price}</b> 🔥\n"
+            f"🚀 <b>To The MOON!! 🚀</b>"
+        )
     if "TP5 HIT" in status:
-        return f"🎯 <b>TP5 Hit @ {price}</b> 💎 Full target reached."
+        return f"🎯 <b>TP5 Hit @ {price}</b> 💎 DIAMOND HANDS."
     if "STOP LOSS HIT" in status:
         if pips_made:
             return (
@@ -90,7 +93,6 @@ def format_update(data: dict) -> Optional[str]:
                 f"Made <b>{pips_made} pips</b> before SL — should have moved trade to break-even."
             )
         return f"🛑 <b>Stop Loss Hit @ {price}</b>"
-
     return None
 
 
